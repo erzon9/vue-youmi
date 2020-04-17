@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/Home';
-import AppLayout from '@/components/AppLayout';
+import Index from '@/views/Index';
 
 
 Vue.use(VueRouter)
@@ -9,7 +9,7 @@ Vue.use(VueRouter)
   const routes = [
   {
     path: '/',
-    component: AppLayout,
+    component: Index,
     redirect: '/home',
     children: [
       {
