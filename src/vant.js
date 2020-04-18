@@ -16,7 +16,9 @@ import {
   Cell,
   CellGroup,
   Sticky,
-  Button
+  Button,
+  Form,
+  Field
 } from 'vant';
 
 
@@ -37,3 +39,5 @@ Vue.use(Cell);
 Vue.use(CellGroup);
 Vue.use(Sticky);
 Vue.use(Button);
+Vue.use(Form);
+Vue.use(Field);

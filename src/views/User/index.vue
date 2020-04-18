@@ -1,12 +1,17 @@
 <template>
-  <div>
+  <div class="user-page">
+    <UserHeader></UserHeader>
     用户
   </div>
 </template>
 
 <script>
-export default {
+import UserHeader from './UserHeader';
 
+export default {
+  components: {
+    UserHeader,
+  }
 }
 </script>
 

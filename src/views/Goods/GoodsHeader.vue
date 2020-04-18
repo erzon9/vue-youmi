@@ -47,8 +47,6 @@ export default {
 <style lang='less'>
 #goods-header {
   position: relative;
-  border-bottom: 1px solid #bfbfc0;
-  box-sizing: border-box;
   .van-nav-bar {
 
     .van-icon {
