@@ -9,7 +9,7 @@
         <van-swipe-item 
           v-for="item in list" 
           :key="item.id">
-          <slot :image='item.image' :text='item.text'></slot>
+          <slot :image='item.image' :text='item.title'></slot>
         </van-swipe-item>
       </van-swipe>
     </div>

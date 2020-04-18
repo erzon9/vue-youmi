@@ -1,63 +1,27 @@
 <template>
   <div class="home-tabs" id="home-tabs">
-    <van-tabs v-model="active" swipeable>
+    <van-tabs v-model="active" swipeable @change="handleTabsChange">
       <van-tab class="tabs-item" v-for="item in list" :title="item" :key='item'>
         <div class="goods-wrap">
-          <router-link to='/goods/123' tag="div" class="goods-item">
+          <router-link 
+            to='/goods/123' 
+            v-for="item in goods"  
+            :key='item.id' tag="div" 
+            class="goods-item">
+
             <div class="img-wrap">
-              <img src="https://img.youpin.mi-img.com/800_pic/b02501a9918b5964d78344df90ec3504.png@base@tag=imgScale&h=342&w=342" alt="">
-              <div class="goods-tips">
+              <img :src="item.image" alt="">
+              <div class="goods-tips" v-if="parseInt(item.price) < 1000">
                 特价
               </div>
             </div>
             <div class="goods-info">
-              <span class="title">素士鼻毛修剪器</span>
-              <span class="desc">只剃毛发不伤皮肤</span>
-              <span class="price">￥59 <i class="old-price">￥68</i></span>
+              <span class="title">{{item.title}}</span>
+              <span class="desc">{{item.desc}}</span>
+              <span class="price">￥{{item.price}} <i class="old-price">￥{{item.old_price}}</i></span>
             </div>
           </router-link>
-
-          <div class="goods-item">
-            <div class="img-wrap">
-              <img src="https://img.youpin.mi-img.com/800_pic/b02501a9918b5964d78344df90ec3504.png@base@tag=imgScale&h=342&w=342" alt="">
-              <div class="goods-tips">
-                特价
-              </div>
-            </div>
-            <div class="goods-info">
-              <span class="title">素士鼻毛修剪器</span>
-              <span class="desc">只剃毛发不伤皮肤</span>
-              <span class="price">￥59 <i class="old-price">￥68</i></span>
-            </div>
-          </div>
-
-           <div class="goods-item">
-            <div class="img-wrap">
-              <img src="https://img.youpin.mi-img.com/800_pic/b02501a9918b5964d78344df90ec3504.png@base@tag=imgScale&h=342&w=342" alt="">
-              <div class="goods-tips">
-                特价
-              </div>
-            </div>
-            <div class="goods-info">
-              <span class="title">素士鼻毛修剪器</span>
-              <span class="desc">只剃毛发不伤皮肤</span>
-              <span class="price">￥59 <i class="old-price">￥68</i></span>
-            </div>
-          </div>
-
-           <div class="goods-item">
-            <div class="img-wrap">
-              <img src="https://img.youpin.mi-img.com/800_pic/b02501a9918b5964d78344df90ec3504.png@base@tag=imgScale&h=342&w=342" alt="">
-              <div class="goods-tips">
-                特价
-              </div>
-            </div>
-            <div class="goods-info">
-              <span class="title">素士鼻毛修剪器</span>
-              <span class="desc">只剃毛发不伤皮肤</span>
-              <span class="price">￥59 <i class="old-price">￥68</i></span>
-            </div>
-          </div>
+   
         </div>
       
       </van-tab>
@@ -67,10 +31,22 @@
 
 <script>
 export default {
+  props: {
+    goods: {
+      type: Array,
+      default: () => [],
+    }
+    
+  },
   data() {
     return {
-      active: 1,
+      active: 0,
       list: ['推荐', '智能', '电器', '生活', '时尚', '特惠']
+    }
+  },
+  methods: {
+    handleTabsChange(index) {
+     this.$emit('tab-change', index);
     }
   }
 }
@@ -88,10 +64,10 @@ export default {
   }
 
   .goods-wrap {
-    padding: 5px 0;
+    padding: 5px 3px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
 
     .goods-item {
       width: 170px;

@@ -1,12 +1,12 @@
 <template>
   <div class="home-page">
     <HomeHeader></HomeHeader>
-    <div class="home-main">
-      <HomeSwiper></HomeSwiper>
+    <div class="home-main" @scroll.passive="throttleScroll" ref='home_main'>
+      <HomeSwiper :swiper='swiper'></HomeSwiper>
       
-      <div class="home-content">
+      <div class="home-content" >
         <HomeAds></HomeAds>
-        <HomeRecomd class="recomd-one" title='推荐榜' moreurl='/more' :list='list'>
+        <HomeRecomd class="recomd-one" title='推荐榜' moreurl='/more' :list='recomdGoods'>
           <template v-slot:default='slotProps'>
             <div class="recomd-item">
               <img :src="slotProps.image" alt="">
@@ -14,7 +14,7 @@
             </div>
           </template>
         </HomeRecomd>
-        <HomeTabs></HomeTabs>
+        <HomeTabs @tab-change='handleTabChange' :goods='goods'></HomeTabs>
       </div>
     </div>
   </div>
@@ -27,6 +27,8 @@ import HomeAds from './HomeAds';
 import HomeRecomd from './HomeRecomd';
 import HomeTabs from './HomeTabs';
 
+import {mapState, mapActions} from 'vuex';
+import _ from 'lodash';
 export default {
   components: {
     HomeHeader,
@@ -37,6 +39,8 @@ export default {
   },
   data() {
     return {
+      scrollHeight: 0,
+      mainHeight: 0,
       list: [
         {
           id: '001',
@@ -85,6 +89,37 @@ export default {
         },
       ]
     }
+  },
+  computed: {
+    ...mapState('home', ['swiper', 'recomdGoods', 'goods']),
+  },
+  methods: {
+    ...mapActions('home', ['getSwiperAction', 'getRecomdGoodsAction', 'getGoodsAction', 'getGoodsAgainAction']),
+    async handleTabChange(index) {
+      await this.getGoodsAgainAction();
+    },
+    throttleScroll: () => {},
+  },
+  async mounted(){
+    await this.getSwiperAction();
+    await this.getRecomdGoodsAction();
+    await this.getGoodsAction();
+    // console.log(this.goods);
+    let self = this;
+    this.throttleScroll =  _.throttle((e) => {
+        let currentScrollTop = this.$refs.home_main.scrollTop;
+        if (this.scrollHeight - currentScrollTop < (300 + this.mainHeight)) {
+          // 获取更多的内容
+          self.getGoodsAction();
+        }
+        // console.log(self);
+      }, 200)
+    this.scrollHeight = this.$refs.home_main.scrollHeight;
+    this.mainHeight = this.$refs.home_main.clientHeight;
+  },
+  updated() {
+    this.scrollHeight = this.$refs.home_main.scrollHeight;
+    this.mainHeight = this.$refs.home_main.clientHeight;
   }
 }
 </script>
