@@ -78,6 +78,7 @@ export default {
 
   .main {
     flex-grow: 1;
+    overflow: scroll;
   }
 
   .btn-nav {

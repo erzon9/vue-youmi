@@ -38,6 +38,11 @@ Vue.use(VueRouter)
     path: '/login',
     name: 'Login',
     component: () => import(/* webpackChunkName: "login" */ '../views/Login')
+  },
+  {
+    path: '/goods/:id',
+    name: 'goods',
+    component: () => import(/* webpackChunkName: "goods" */ '../views/Goods')
   }
 ]
 
