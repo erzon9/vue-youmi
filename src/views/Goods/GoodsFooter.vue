@@ -11,14 +11,32 @@
 
 <script>
 import { Toast } from 'vant';
-
+import { mapState, mapMutations } from 'vuex';
+import * as Types from '../../store/mutation-types';
 export default {
+  props: {
+    goods: {
+      type: Object,
+      default: () => ({})
+    }
+  },
+  computed: {
+    ...mapState(['goodsObj']),
+  },
   methods: {
+    ...mapMutations([Types.ADD_GOODS_NUM]),
     onClickIcon() {
       Toast('点击图标');
     },
-    onClickButton() {
-      Toast('点击按钮');
+    onClickButton(e) {
+      let target = e.target;
+      let text = target.textContent;
+      if (text === '加入购物车') {
+        this.ADD_GOODS_NUM({name: this.goods.id});
+        Toast('添加商品成功');
+      } else if (text === '立即购买') {
+        console.log('222');
+      }
     },
   },
 };

@@ -8,6 +8,7 @@ import {
   Lazyload,
   Tab,
   Tabs,
+  Toast,
   NavBar,
   Popup,
   GoodsAction,
@@ -19,7 +20,11 @@ import {
   Button,
   Form,
   Field,
-  Search
+  Search,
+  Card,
+  SubmitBar,
+  SwipeCell,
+  Dialog,
 } from 'vant';
 
 
@@ -43,3 +48,8 @@ Vue.use(Button);
 Vue.use(Form);
 Vue.use(Field);
 Vue.use(Search);
+Vue.use(Card);
+Vue.use(Toast);
+Vue.use(SubmitBar);
+Vue.use(SwipeCell);
+Vue.use(Dialog);

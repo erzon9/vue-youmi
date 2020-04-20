@@ -104,7 +104,7 @@ export default {
     await this.getSwiperAction();
     await this.getRecomdGoodsAction();
     await this.getGoodsAction();
-    // console.log(this.goods);
+    
     let self = this;
     this.throttleScroll =  _.throttle((e) => {
         let currentScrollTop = this.$refs.home_main.scrollTop;

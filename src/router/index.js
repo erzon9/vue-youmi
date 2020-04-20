@@ -22,11 +22,7 @@ Vue.use(VueRouter)
         name: 'classify',
         component: () => import(/* webpackChunkName: "classify" */'@/views/Classify'),
       },
-      {
-        path: '/cart',
-        name: 'cart',
-        component: () => import(/* webpackChunkName: "cart" */'@/views/Cart'),
-      },
+     
       {
         path: '/user',
         name: 'user',
@@ -38,6 +34,11 @@ Vue.use(VueRouter)
     path: '/login',
     name: 'Login',
     component: () => import(/* webpackChunkName: "login" */ '../views/Login')
+  },
+  {
+    path: '/cart',
+    name: 'cart',
+    component: () => import(/* webpackChunkName: "cart" */'@/views/Cart'),
   },
   {
     path: '/goods/:id',

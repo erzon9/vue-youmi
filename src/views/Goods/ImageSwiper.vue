@@ -16,15 +16,16 @@
 
 <script>
 export default {
+  props: {
+    images: {
+      type: Array,
+      default: () => [],
+    }
+  },
   data() {
     return {
       current: 0,
-      images: [
-        "https://img.youpin.mi-img.com/goods/de9f589ebecf014e2bec6b7f0b4a5dbb.jpg?_s=ks3&w=1080&h=1270&crop=a_0_95_1080_1080",
-        "https://img.youpin.mi-img.com/goods/11ac46028c077639d48f6c63d455543d.jpg?_s=ks3&w=1080&h=1270&crop=a_0_95_1080_1080",
-        "https://img.youpin.mi-img.com/goods/d69fbfdbcf215acb94309ca42f251ad2.jpg?_s=ks3&w=1080&h=1270&crop=a_0_95_1080_1080",
-        "https://img.youpin.mi-img.com/goods/9c35797985f3485af44dc066c72b9d90.jpg?_s=ks3&w=1080&h=1270&crop=a_0_95_1080_1080"
-      ]
+      
     };
   },
   methods: {
@@ -32,6 +33,9 @@ export default {
       this.current = index;
     },
   },
+  mounted() {
+    console.log(this.images);
+  }
 };
 </script>
 

@@ -1,23 +1,26 @@
 <template>
-  <div class="goods-header" id='goods-header'>
-    <van-nav-bar left-arrow @click-left="handleClickLeft" @click-right='handleClickRight'>
+  <div class="goods-header" id="goods-header">
+    <van-nav-bar left-arrow @click-left="handleClickLeft" @click-right="handleClickRight">
       <template #title>
         <van-tabs v-model="active">
-          <van-tab v-for="item in list" :key='item' :title="item" :name='item'></van-tab>
-          
+          <van-tab v-for="item in list" :key="item.label" :name="item.anchor">
+            <template #title>
+              <a :href='item.anchor'>{{item.label}}</a>
+            </template>
+          </van-tab>
         </van-tabs>
       </template>
       <template #right>
-        <van-icon name="ellipsis"/>
+        <van-icon name="ellipsis" />
       </template>
     </van-nav-bar>
-    <div class="select" v-show='show'>
+    <div class="select" v-show="show">
       <div class="tri"></div>
       <span class="go-index">
-        <van-icon name="wap-home-o" /> 首页
+        <van-icon name="wap-home-o" />首页
       </span>
       <span class="my-fav">
-        <van-icon name="like-o" /> 我的收藏
+        <van-icon name="like-o" />我的收藏
       </span>
     </div>
   </div>
@@ -27,10 +30,15 @@
 export default {
   data() {
     return {
-      active: '商品',
+      active: "商品",
       show: false,
-      list: ['商品', '评价', '详情', '推荐']
-    }
+      list: [
+        { label: "商品", anchor: "#shangpin" },
+        { label: "评价", anchor: "#pingjia" },
+        { label: "详情", anchor: "#xiangqing" },
+        { label: "推荐", anchor: "#tuijian" }
+      ]
+    };
   },
   methods: {
     handleClickLeft() {
@@ -41,21 +49,23 @@ export default {
       this.show = !this.show;
     }
   }
-}
+};
 </script>
 
 <style lang='less'>
 #goods-header {
   position: relative;
   .van-nav-bar {
-
     .van-icon {
       color: #bbbbbb;
     }
 
     .van-tabs {
       .van-tab {
-        color: #845f3f;
+        a {
+          color: #845f3f;
+        }
+        
       }
 
       .van-tabs__line {
@@ -73,7 +83,7 @@ export default {
     right: 5px;
     top: 100%;
     z-index: 999;
-    background-color: #efefef;;
+    background-color: #efefef;
     height: 110px;
     width: 160px;
     display: flex;
@@ -107,7 +117,5 @@ export default {
       }
     }
   }
-
- 
 }
 </style>

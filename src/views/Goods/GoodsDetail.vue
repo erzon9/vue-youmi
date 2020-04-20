@@ -1,15 +1,15 @@
 <template>
-  <div class="goods-detail">
+  <div class="goods-detail" >
     <div class="big-price">
-      <span class="price">￥1499 <i class="old-price">￥1699</i></span>
+      <span class="price">￥{{goods.price}} <i class="old-price" v-if="goods.old_price">￥ {{goods.old_price}}</i></span>
       <span class="fav">
         <van-icon name="like-o" />
         <span>收藏</span>
       </span>
     </div>
     <div class="goods-info">
-      <p class="info-title">火候不锈钢指甲刀</p>
-      <p class="info-desc">品质优选 多功能 时尚 轻便</p>
+      <p class="info-title">{{goods.title}}</p>
+      <p class="info-desc">{{goods.desc}}</p>
     </div>
     <div class="goods-order">
       <van-cell class="order-selected" @click='handleClick' is-link>
@@ -47,7 +47,7 @@
       </van-cell>
       <van-popup v-model="show" round position="bottom" :style="{ height: '60%' }" />
     </div>
-    <div class="goods-pingjia">
+    <div class="goods-pingjia" id="pingjia">
       <div class="pingjia-header">
         <div class="title-wrap">
           <span class="pingjia-title">用户评价（3252）</span>
@@ -64,7 +64,7 @@
 
       </div>
     </div>
-    <div ref='container' class="goods-detail-main">
+    <div ref='container' class="goods-detail-main" id="xiangqing">
       <van-sticky :container="container" :offset-top="46">
         <div class="sticky-tab">
           <span class="active">商品详情</span>
@@ -75,13 +75,16 @@
         <img src="https://img.youpin.mi-img.com/shopmain/a05d021457382d80dfee14f19df41eb4.jpg?w=864&h=1088" alt="">
         <img src="https://img.youpin.mi-img.com/shopmain/2658ad95f1ec20eb3b592e59ed227161.jpg?w=864&h=1168" alt="">
         <img src="https://img.youpin.mi-img.com/shopmain/98f6bb7773fdbf6316a50fae86b34667.jpg?w=864&h=1419" alt="">
+        <div class="tuijian" id="tuijian">123</div>
       </div>
     </div> 
+    <!-- <div class="tuijian" id="tuijian">123</div> -->
   </div>
 </template>
 
 <script>
 export default {
+  props: ['goods'],
   data() {
     return {
       show : false,
@@ -281,6 +284,11 @@ export default {
     }
   }
 
+  .tuijian {
+    width: 100%;
+    height: 200px;
+    background-color: aquamarine;
+  }
 
 }
 </style>

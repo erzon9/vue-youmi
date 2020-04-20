@@ -3,13 +3,14 @@
     <div class="main">
       <router-view></router-view>
     </div>
-    <van-tabbar class="btn-nav" v-model="active" active-color="#DFB455" inactive-color="#666666" route>
+    <van-tabbar @change='handleChange($event)' class="btn-nav" v-model="active" active-color="#DFB455" inactive-color="#666666" route>
       <van-tabbar-item 
+        
         v-for='item of tabbarList'
         :name='item.name' 
         :key='item.name' 
         :to="item.path"
-        :badge="item.name === 'cart' ? badge : null"
+        :badge="item.name === 'cart' ? goodsTotal : null"
         :icon="active === item.name ? item.icon.active: item.icon.inactive">
         <span style='color: '>{{item.text}}</span>
       </van-tabbar-item>
@@ -18,6 +19,7 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex';
 export default {
   data() {
     return {
@@ -62,6 +64,20 @@ export default {
         }, 
       ],
     };
+  },
+  computed: {
+    ...mapState(['goodsList']),
+    goodsTotal() {
+      let num = 0;
+      this.goodsList.forEach(item => {
+        num += item.num;
+      });
+      return num;
+    }
+  },
+  methods: {
+    handleChange(i, e) {
+    }
   },
   mounted() {
     // 改变激活的 tabbar
