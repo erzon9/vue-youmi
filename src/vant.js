@@ -18,7 +18,8 @@ import {
   Sticky,
   Button,
   Form,
-  Field
+  Field,
+  Search
 } from 'vant';
 
 
@@ -41,3 +42,4 @@ Vue.use(Sticky);
 Vue.use(Button);
 Vue.use(Form);
 Vue.use(Field);
+Vue.use(Search);
