@@ -24,11 +24,13 @@
           <van-button round block type="info" native-type="submit">登录/注册</van-button>
         </div>
       </van-form>
+      <button @click="handleIsLogin">是否登录</button>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
   data() {
     return {
@@ -37,14 +39,27 @@ export default {
     };
   },
   methods: {
-    onSubmit(values) {
+    ...mapActions(['loginAction', 'isLoginAction']),
+    async onSubmit(values) {
       console.log("submit", values);
+      try {
+        await this.loginAction({data: {username: this.username, password: this.password}});
+        let from = this.$route.query.from || '/';
+        console.log(from);
+        this.$router.replace(from);
+      } catch (error) {
+        console.log(error.message);
+      }
+      
+    },
+    async handleIsLogin() {
+      await this.isLoginAction();
     },
     nameValidator(val) {
-      return /\w{6,}/.test(val);
+      return /\w{3,}/.test(val);
     },
     pwdValidator(val) {
-      return /\d{7}/.test(val);
+      return /\w{2}/.test(val);
     }
   }
 };

@@ -15,3 +15,7 @@ export const ADD_ONE_GOODS = 'ADD_ONE_GOODS';
 export const MINUS_ONE_GOODS = 'MINUS_ONE_GOODS';
 
 export const DELETE_GOODS = 'DELETE_GOODS';
+
+export const SET_TOKEN = 'SET_TOKEN';
+
+export const SET_USER = 'SET_USER';

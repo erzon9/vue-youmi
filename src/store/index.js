@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import home from './home';
 import * as Types from './mutation-types';
+import { login, isLogin } from '../api/login';
 
 Vue.use(Vuex)
 
@@ -58,6 +59,8 @@ export default new Vuex.Store({
         img: 'https://img.youpin.mi-img.com/shopmain/a47e94afa4d8b2159f9ac6e9fa121285.png@base@tag=imgScale&h=342&w=342'
       }
     ],
+    token: '',
+    user: {},
   },
   mutations: {
     [Types.ADD_GOODS_NUM](state, payload) {
@@ -97,9 +100,43 @@ export default new Vuex.Store({
       let goodsList = state.goodsList;
       let index = goodsList.findIndex(item => item.id === payload.id);
       goodsList.splice(index, 1);
+    },
+    [Types.SET_TOKEN](state, payload) {
+      state.token = payload.token;
+    },
+    [Types.SET_USER](state, payload) {
+      state.user = payload.user;
     }
   },
   actions: {
+    async loginAction({commit}, payload) {
+      let rst = await login(payload.data);
+      console.log(rst.data);
+      if (rst.data.code === 0) {
+        commit(Types.SET_TOKEN, {token: rst.data.token});
+        commit(Types.SET_USER, {user: rst.data.user});
+      } else {
+        throw new Error(rst.data.msg);
+      }
+      
+    },
+    async isLoginAction({commit, state}, payload) {
+      try {
+        let rst = await isLogin({token: state.token});
+        let data = rst.data;
+        if (data.code === 0) {
+          // 用户已经登录，此时也已经返回了用户的信息，可以进行后续的操作
+          commit(Types.SET_TOKEN, {token: rst.data.token});
+          commit(Types.SET_USER, {user: rst.data.user});
+        } else {
+          // 用户当前用户没有登录
+          throw new Error('当前用户没有登录');
+        }
+      } catch (error) {
+        throw error;
+      }
+      
+    }
   },
   modules: {
     home,
